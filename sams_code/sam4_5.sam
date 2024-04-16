@@ -1,0 +1,27 @@
+// int x = 8;
+// int resultado;
+
+// if (x > 6):
+// 	resultado = 1;
+// else: 
+// 	resultado = 0;
+
+// return resultado;
+
+	ADDSP 2
+	PUSHIMM 4
+	STOREABS 1
+	PUSHABS 1
+	PUSHIMM 6
+	GREATER		 //0 SE X <=6
+	ISNIL		//1 SE X <=6;
+	JUMPC ELSE
+	PUSHIMM 1
+	STOREABS 0
+	JUMP ENDIF
+ELSE:
+	PUSHIMM 0
+	STOREABS 0
+ENDIF:
+	ADDSP -1
+	STOP

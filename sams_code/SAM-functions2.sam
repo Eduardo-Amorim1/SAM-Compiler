@@ -1,0 +1,27 @@
+// int soma (int a, int b){
+//	int c = a + b;
+// 	return c;
+// }
+// int main(){
+// 	int x = 10, y=20;
+// 	return soma(x,y);
+// }
+
+MAIN:
+	ADDSP 1
+	PUSHIMM 10
+	PUSHIMM 20
+	LINK		//Stack[sp] = FBR; FBR = SP; SP++
+	JSR SOMA	//Stack[SP] = PC +1;SP++; PC = LABEL
+	POPFBR
+	ADDSP -2
+	STOP
+
+SOMA:
+	ADDSP 1
+	PUSHOFF -2
+	PUSHOFF -1
+	ADD
+	STOREOFF 2
+	STOREOFF -3
+	JUMPIND

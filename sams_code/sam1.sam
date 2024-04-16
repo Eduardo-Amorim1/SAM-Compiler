@@ -1,0 +1,4 @@
+PUSHIMM 10
+PUSHIMM 20
+SUB			//comentários
+STOP

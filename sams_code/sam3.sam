@@ -1,0 +1,18 @@
+// int x, y;
+// int x = 10;
+// int y = 20;
+// return (x+y)
+
+ADDSP 3
+PUSHIMM 10
+STOREABS 1
+PUSHIMM 20
+STOREABS 2
+
+PUSHABS 1
+PUSHABS 2
+ADD
+STOREABS 0
+ADDSP -2
+
+STOP

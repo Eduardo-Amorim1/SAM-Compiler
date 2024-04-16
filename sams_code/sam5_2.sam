@@ -1,0 +1,31 @@
+// int i = 1, n = 10, b = 2;
+// while (i <= n){
+// 	  b = b * i;
+// 	  i+=1;
+// }
+//return b;
+
+	ADDSP 3
+	PUSHIMM 1
+	PUSHIMM 10
+	PUSHIMM 2
+	STOREABS 0 	//b
+	STOREABS 1  //n
+	STOREABS 2  //i
+WHILE: 
+	PUSHABS 2
+	PUSHABS 1
+	GREATER
+	JUMPC ENDWHILE
+	PUSHABS 0
+	PUSHABS 2
+	TIMES
+	STOREABS 0
+	PUSHABS 2
+	PUSHIMM 1
+	ADD
+	STOREABS 2
+	JUMP WHILE
+ENDWHILE:
+	ADDSP -2
+	STOP

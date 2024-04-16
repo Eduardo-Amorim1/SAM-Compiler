@@ -1,0 +1,19 @@
+// int main(){
+// 	int x=5,y=10;
+// 	return (x+y);
+// }
+PUSHIMM 0
+LINK		//Stack[sp] = FBR; FBR = SP; SP++
+ADDSP 2
+PUSHIMM 5
+PUSHIMM 10
+STOREOFF 2
+STOREOFF 1
+PUSHOFF 1
+PUSHOFF 2
+LINK
+ADD
+STOREOFF -1
+ADDSP -2
+POPFBR
+STOP

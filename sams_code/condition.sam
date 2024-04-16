@@ -1,0 +1,32 @@
+// estrutura condicional
+// int x=8, y=10
+// if (x>= 0) return 1;
+// return y;
+
+
+    ADDSP 3
+    PUSHIMM 8
+    PUSHIMM 10
+    STOREABS 2
+    STOREABS 1
+
+
+    PUSHABS 1  // CARREGAR X NA PILHA
+    PUSHIMM 0
+    LESS
+    JUMPC ENDIF
+
+    PUSHIMM 1
+    STOREABS 0
+
+    ADDSP -2
+    STOP 
+
+ENDIF:
+
+    PUSHABS 2
+    STOREABS 0
+    ADDSP -2
+    STOP
+
+

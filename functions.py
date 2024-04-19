@@ -170,22 +170,20 @@ class Functions:
             else:
                 print("Error: Attempted to access out-of-bounds memory")
 
-    def push_off(self):
-        if self.stack:
-            offset = self.stack.pop()
-            if len(self.stack) > offset >= 0:
-                self.stack.append(self.stack[-1 - offset])
-            else:
-                print("Error: Attempted to access out-of-bounds memory")
+    def push_off(self, offset: int):
+        if self.stack and 0 <= int(offset) < len(self.stack):
+            self.stack.append(self.stack[-1 - int(offset)])
+        else:
+            # Handle out-of-bounds access
+            print("Error: Attempted to access out-of-bounds memory")
 
-    def store_off(self):
-        if len(self.stack) >= 2:
+    def store_off(self, offset: int):
+        if len(self.stack) >= 2 and 0 <= int(offset) < len(self.stack):
             value = self.stack.pop()
-            offset = self.stack.pop()
-            if len(self.stack) > offset >= 0:
-                self.stack[-1 - offset] = value
-            else:
-                print("Error: Attempted to access out-of-bounds memory")
+            self.stack[-1 - int(offset)] = value
+        else:
+            # Handle out-of-bounds access
+            print("Error: Attempted to access out-of-bounds memory")
 
     def greater(self):
         self.stack.append(int(self.stack.pop() < self.stack.pop()))
@@ -195,4 +193,10 @@ class Functions:
             self.stack.append(1)
         else:
             self.stack.append(0)
+            
+    def jsr(self, label: str):
+        # Assuming 'label' is the name of the subroutine to jump to
+        return_address = len(self.stack)  # Save the return address
+        self.stack.append(return_address)  # Push the return address onto the stack
+        self.jumps.append(label)  # Jump to the subroutine
 

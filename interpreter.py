@@ -63,7 +63,7 @@ class Interpreter:
         # file_path = sys.argv[1]
         tokens = []
         try:
-            with open(file_path, "r") as file:
+            with open(file_path, "r", encoding='utf-8') as file:
                 count_line = -1
                 for line_code in file.readlines():
                     count_line += 1

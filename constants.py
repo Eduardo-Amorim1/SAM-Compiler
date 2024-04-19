@@ -1,7 +1,5 @@
 import enum
-
 from functions import *
-
 
 class ConstantFunctionsName(enum.StrEnum):
     ADDSP = "ADDSP"

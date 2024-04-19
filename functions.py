@@ -48,6 +48,9 @@ class Functions:
     def stop(self):
         if len(self.stack) == 1:
             print(f"Result: {self.stack[-1]}")
+        elif len(self.stack) > 1:
+            print(f"Result: {self.stack[-1]}")
+            print("Warning: There are more than one value in the stack")
         else:
             print("Error in the program")
             print("Finished self.stack: ", self.stack)

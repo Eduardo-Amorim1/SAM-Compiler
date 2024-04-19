@@ -1,6 +1,5 @@
 import re
 import sys
-
 from constants import MappingConstants, ConstantFunctionsName
 from functions import Functions
 from schema import JumpConstant, Instruction, BuilderInstructions
@@ -12,6 +11,7 @@ class Interpreter:
         self.functions = Functions()
         self.builderInstructions = BuilderInstructions()
         self.instructions = []
+        self.stop = False
         self.mapping_functions = MappingConstants(self.functions).mapping_functions
 
     def strip_tokens(self, line_code: str, count_line: int) -> Instruction | JumpConstant:
@@ -44,8 +44,12 @@ class Interpreter:
     def build_stack(self, instruction: list[Instruction | JumpConstant]) -> None:
         for instr in instruction:
             try:
+                if self.stop:
+                    break
                 if len(self.functions.jumps) == 0 and not isinstance(instr, JumpConstant):
                     instr.function(*instr.args)
+                    if instr.name == ConstantFunctionsName.STOP:
+                        self.stop = True
                 else:
                     if len(self.functions.jumps) > 0 and instr.name == self.functions.jumps[-1]:
                         self.functions.jumps.pop()
@@ -74,7 +78,7 @@ class Interpreter:
                         continue
                     tokens.append(self.strip_tokens(line_code, count_line))
             self.build_stack(tokens)
-            print("Program finish!")
+            print("Program finished!")
         except FileNotFoundError:
             print(f"File {file_path} not found")
             raise SystemExit(1)

@@ -145,7 +145,7 @@ class Functions:
             self.stack[-1], self.stack[-2] = self.stack[-2], self.stack[-1]
 
     def link(self):
-        self.stack.append(len(self.stack))
+        pass
 
     def malloc(self):
         pass
@@ -173,17 +173,11 @@ class Functions:
     def push_off(self, offset: int):
         if self.stack and 0 <= int(offset) < len(self.stack):
             self.stack.append(self.stack[-1 - int(offset)])
-        else:
-            # Handle out-of-bounds access
-            print("Error: Attempted to access out-of-bounds memory")
 
     def store_off(self, offset: int):
         if len(self.stack) >= 2 and 0 <= int(offset) < len(self.stack):
             value = self.stack.pop()
             self.stack[-1 - int(offset)] = value
-        else:
-            # Handle out-of-bounds access
-            print("Error: Attempted to access out-of-bounds memory")
 
     def greater(self):
         self.stack.append(int(self.stack.pop() < self.stack.pop()))
@@ -197,6 +191,8 @@ class Functions:
     def jsr(self, label: str):
         # Assuming 'label' is the name of the subroutine to jump to
         return_address = len(self.stack)  # Save the return address
-        self.stack.append(return_address)  # Push the return address onto the stack
+        self.stack.append(return_address+1)  # Push the return address onto the stack
         self.jumps.append(label)  # Jump to the subroutine
 
+    def jumpind(self):  # added directly in the interpreter
+        pass

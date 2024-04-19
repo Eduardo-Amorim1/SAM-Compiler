@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from interpreter import Interpreter
+from stackmachine import StackMachine
 
 
 def teste_all_files():
@@ -10,12 +10,10 @@ def teste_all_files():
         files = all_files[2]
         for file in files:
             try:
-                # if file == "exercise.sam":
                 print(f"File: {file}")
                 print("LOGS:")
-                interpreter = Interpreter()
+                interpreter = StackMachine()
                 interpreter.read_file(os.path.join(path, file))
-
                 print("\n" + "-" * 50 + "\n")
             except Exception as error:
                 print(error)
@@ -23,5 +21,3 @@ def teste_all_files():
 
 if __name__ == "__main__":
     teste_all_files()
-    # interpreter = Interpreter()
-    # interpreter.read_file()

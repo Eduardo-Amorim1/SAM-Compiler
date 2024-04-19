@@ -37,6 +37,7 @@ class ValidateArguments:
             ConstantFunctionsName.STOREABS: self.val_positive_int_value,
             ConstantFunctionsName.PUSHABS: self.val_positive_int_value,
             ConstantFunctionsName.PUSHIMM: self.val_int_value,
+            # add other validations ...
         }
 
     @property

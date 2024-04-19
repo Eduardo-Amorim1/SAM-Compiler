@@ -5,6 +5,8 @@ class ConstantFunctionsName(enum.StrEnum):
     ADDSP = "ADDSP"
     JUMPC = "JUMPC"
     JUMP = "JUMP"
+    JSR = "JSR"
+    JUMPIND = "JUMPIND"
     PUSHABS = "PUSHABS"
     LESS = "LESS"
     STOREABS = "STOREABS"
@@ -68,6 +70,8 @@ class MappingConstants:
             ConstantFunctionsName.LESS: self.functions.less,
             ConstantFunctionsName.JUMPC: self.functions.jumpc,
             ConstantFunctionsName.JUMP: self.functions.jump,
+            ConstantFunctionsName.JSR: self.functions.jsr,
+            ConstantFunctionsName.JUMPIND: self.functions.jumpind,
             ConstantFunctionsName.DIV: self.functions.div,
             ConstantFunctionsName.MOD: self.functions.mod,
             ConstantFunctionsName.LSHIFT: self.functions.lshift,

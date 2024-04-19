@@ -1,17 +1,20 @@
 import re
-import sys
+
 from constants import MappingConstants, ConstantFunctionsName
 from functions import Functions
 from schema import JumpConstant, Instruction, BuilderInstructions
 
 
-class Interpreter:
+class StackMachine:
 
     def __init__(self):
         self.functions = Functions()
         self.builderInstructions = BuilderInstructions()
         self.instructions = []
         self.stop = False
+        self.FBR = 0
+        self.PC = 0
+        self.memory = [0] * 100
         self.mapping_functions = MappingConstants(self.functions).mapping_functions
 
     def strip_tokens(self, line_code: str, count_line: int) -> Instruction | JumpConstant:
@@ -46,6 +49,16 @@ class Interpreter:
             try:
                 if self.stop:
                     break
+                if instr.name == ConstantFunctionsName.JUMPIND:
+                    self.functions.stack.pop()
+                    self.build_stack(self.instructions[self.PC:])
+                if instr.name == ConstantFunctionsName.LINK:
+                    self.functions.stack.append(self.FBR)
+                    self.FBR = len(self.functions.stack) - 1
+                if instr.name == ConstantFunctionsName.PUSHFBR:
+                    self.FBR = self.functions.stack.pop()
+                if instr.name == ConstantFunctionsName.JSR:
+                    self.PC = len(self.functions.stack) - 1
                 if len(self.functions.jumps) == 0 and not isinstance(instr, JumpConstant):
                     instr.function(*instr.args)
                     if instr.name == ConstantFunctionsName.STOP:
@@ -53,6 +66,10 @@ class Interpreter:
                 else:
                     if len(self.functions.jumps) > 0 and instr.name == self.functions.jumps[-1]:
                         self.functions.jumps.pop()
+
+                #  only to debbug the queue
+                # print(self.functions.stack)
+
             except Exception as error:
                 print(error)
 
@@ -63,7 +80,7 @@ class Interpreter:
         # file_path = sys.argv[1]
         tokens = []
         try:
-            with open(file_path, "r", encoding='utf-8') as file:
+            with open(file_path, "r") as file:
                 count_line = -1
                 for line_code in file.readlines():
                     count_line += 1

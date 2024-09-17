@@ -1,11 +1,12 @@
 # Functions
 from collections import deque
 
-
 class Functions:
     def __init__(self):
-        self.stack = deque()
-        self.jumps = deque()
+        self.stack = deque()          # Pilha original
+        self.internal_stack = deque() # Pilha interna
+        self.jumps = deque()          # Saltos condicionais
+        self.memory = {}              # Dicionário para armazenar valores fora do alcance da pilha
 
     def jumpc(self, name_step: str):
         validate = self.stack.pop()
@@ -18,20 +19,45 @@ class Functions:
     def addsp(self, value: str):
         value = int(value)
         if value > 0:
-            for _ in range(int(value)):
-                self.stack.append(0)
+            for _ in range(value):
+                # Se a pilha interna tiver valores, empurra para a original
+                if self.internal_stack:
+                    self.stack.append(self.internal_stack.pop())
+                else:
+                    # Caso contrário, apenas adiciona 0 na original
+                    self.stack.append(0)
         else:
-            for _ in range(abs(int(value))):
-                self.stack.pop()
+            for _ in range(abs(value)):
+                # Remove da pilha original e adiciona na pilha interna
+                if self.stack:
+                    self.internal_stack.append(self.stack.pop())
 
-    def storeabs(self, value: str):
-        self.stack[int(value)] = self.stack.pop()
+    def storeabs(self, index: str):
+        index = int(index)
+        value = self.stack.pop()
+        if index >= len(self.stack):
+            # Se o índice estiver fora do alcance da pilha, armazene no dicionário
+            self.memory[index] = value
+        else:
+            # Se o índice estiver dentro do alcance, substitua o valor da pilha
+            self.stack[index] = value
 
-    def pushabs(self, value: str):
-        self.stack.append(self.stack[int(value)])
+    def pushabs(self, index: str):
+        index = int(index)
+        if index in self.memory:
+            # Se o valor estiver no dicionário, empurre para a pilha
+            self.stack.append(self.memory[index])
+        elif index < len(self.stack):
+            # Se o valor estiver na pilha, empurre para a pilha
+            self.stack.append(self.stack[index])
+        else:
+            # Se o índice estiver fora do alcance, empurre 0 (ou outro valor padrão)
+            self.stack.append(0)
 
     def sub(self):
-        self.stack.append(self.stack.pop() - self.stack.pop())
+        first = self.stack.pop()
+        second = self.stack.pop()
+        self.stack.append(second - first)
 
     def less(self):
         self.stack.append(int(self.stack.pop() > self.stack.pop()))
@@ -49,7 +75,7 @@ class Functions:
         if len(self.stack) == 1:
             print(f"Result: {self.stack[-1]}")
         elif len(self.stack) > 1:
-            print(f"Result: {self.stack[-1]}")
+            print(f"Result: {self.stack[0]}")
             print("Warning: There are more than one value in the stack")
         else:
             print("Error in the program")

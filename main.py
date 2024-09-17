@@ -3,7 +3,6 @@ from pathlib import Path
 
 from stackmachine import StackMachine
 
-
 def teste_all_files():
     path = os.path.join(Path(__file__).parent, "sams_code")
     for all_files in os.walk(path):
@@ -17,7 +16,18 @@ def teste_all_files():
                 print("\n" + "-" * 50 + "\n")
             except Exception as error:
                 print(error)
+                
+def one_file(file):
+    try:
+        print(f"File: {file}")
+        print("LOGS:")
+        interpreter = StackMachine()
+        interpreter.read_file(file)
+        print("\n" + "-" * 50 + "\n")
+    except Exception as error:
+        print(error)
 
 
 if __name__ == "__main__":
-    teste_all_files()
+    #teste_all_files()
+    one_file("E:\\Faculdade\\Compiladores\\SAM-Compiler\\sams_code\\teste.sam")

@@ -30,4 +30,4 @@ def one_file(file):
 
 if __name__ == "__main__":
     #teste_all_files()
-    one_file("E:\\Faculdade\\Compiladores\\SAM-Compiler\\sams_code\\teste.sam")
+    one_file("E:\\Faculdade\\Compiladores\\SAM-Compiler\\sams_code\\sam4_5.sam")

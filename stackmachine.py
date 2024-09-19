@@ -31,7 +31,7 @@ class StackMachine:
                 clean_tokens.append(token)
                 if "//" in original_token:
                     break
-            if re.compile(r"[a-zA-Z]+:").match(clean_tokens[0].strip()):
+            if re.compile(r"[a-zA-Z0-9]+:").match(clean_tokens[0].strip()):
                 return JumpConstant(clean_tokens[0].strip().replace(":", ""))
             type_function = ConstantFunctionsName(clean_tokens[0].strip())
             instruction = self.builderInstructions.build_instruction(

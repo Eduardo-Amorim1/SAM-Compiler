@@ -1,10 +1,45 @@
-PUSHIMM 1
-PUSHIMM 2
-PUSHIMM 3
-ADDSP -1
-ADDSP -1
-ADDSP -1
-ADDSP 1
-ADDSP 1
-ADDSP 1
-STOP
+// int x = 7;
+// int resultado;
+
+// if (x > 5):
+//     if (x < 10):
+//         resultado = 3;
+//     else:
+//         resultado = 2;
+// else:
+//     resultado = 1;
+
+// return resultado;
+
+ADDSP 2         // Aloca espaço para 2 variáveis locais
+PUSHIMM 7       // Carrega o valor 7 na pilha
+STOREABS 1      // Armazena o valor 7 na posição de memória 1 (x)
+
+PUSHABS 1       // Carrega o valor de x (7) na pilha
+PUSHIMM 5       // Carrega o valor 5 na pilha
+GREATER         // Compara se x > 5 (0 se x <= 5, 1 se x > 5)
+ISNIL           // Se o resultado for 0 (x <= 5), pula para ELSE1
+JUMPC ELSE1     // Se o resultado for 1 (x > 5), continua para o próximo IF
+
+    PUSHIMM 1   // x <= 5, resultado = 1
+    STOREABS 0  // Armazena o valor 1 na posição de memória 0 (resultado)
+    JUMP ENDIF1 // Pula para o final do bloco
+
+ELSE1:          // Bloco de ELSE do primeiro IF
+    PUSHABS 1   // Carrega o valor de x (7) na pilha
+    PUSHIMM 10  // Carrega o valor 10 na pilha
+    LESS         // Compara se x < 10 (0 se x >= 10, 1 se x < 10)
+    ISNIL        // Se o resultado for 0 (x >= 10), pula para ELSE2
+    JUMPC ELSE2  // Se o resultado for 1 (x < 10), continua para a ação do segundo IF
+
+        PUSHIMM 3 // x > 5 e x < 10, resultado = 3
+        STOREABS 0 // Armazena o valor 3 na posição de memória 0 (resultado)
+        JUMP ENDIF1 // Pula para o final do bloco
+
+    ELSE2:      // Bloco de ELSE do segundo IF
+        PUSHIMM 2 // x > 5 e x >= 10, resultado = 2
+        STOREABS 0 // Armazena o valor 2 na posição de memória 0 (resultado)
+
+ENDIF1:        // Fim do bloco de ambos os IFs
+    ADDSP -2    // Libera o espaço alocado para variáveis locais
+    STOP        // Finaliza a execução

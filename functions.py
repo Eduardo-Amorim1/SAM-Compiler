@@ -7,6 +7,13 @@ class Functions:
         self.internal_stack = deque() # Pilha interna
         self.jumps = deque()          # Saltos condicionais
         self.memory = {}              # Dicionário para armazenar valores fora do alcance da pilha
+        self.result = 0
+        
+    def get_result_and_memory(self):
+        return self.result, self.memory
+    
+    def write(self):
+        print(self.stack.pop())
 
     def jumpc(self, name_step: str):
         validate = self.stack.pop()
@@ -70,13 +77,20 @@ class Functions:
 
     def add(self):
         self.stack.append(self.stack.pop() + self.stack.pop())
+    
+    def addf(self):
+        self.stack.append(self.stack.pop() + self.stack.pop())
 
     def stop(self):
         if len(self.stack) == 1:
-            print(f"Result: {self.stack[-1]}")
+            self.result = self.stack[-1]
         elif len(self.stack) > 1:
-            print(f"Result: {self.stack[0]}")
+            self.result = self.stack[0]
             print("Warning: There are more than one value in the stack")
+        # Caso exist memória, retorna o último valor
+        elif self.memory:
+            self.result = next(reversed(self.memory.values()))
+            print("Warning: The stack is empty")
         else:
             print("Error in the program")
             print("Finished self.stack: ", self.stack)

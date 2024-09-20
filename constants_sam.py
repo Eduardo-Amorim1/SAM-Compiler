@@ -50,6 +50,8 @@ class ConstantFunctionsName(enum.StrEnum):
     GREATER = "GREATER"
     ISNIL = "ISNIL"
     LINK = "LINK"
+    ADDF = "ADDF"
+    WRITE = "WRITE"
 
 
 class MappingConstants:
@@ -106,6 +108,8 @@ class MappingConstants:
             ConstantFunctionsName.STOREOFF: self.functions.store_off,
             ConstantFunctionsName.GREATER: self.functions.greater,
             ConstantFunctionsName.ISNIL: self.functions.isnil,
-            ConstantFunctionsName.LINK: self.functions.link
+            ConstantFunctionsName.LINK: self.functions.link,
+            ConstantFunctionsName.ADDF: self.functions.addf,
+            ConstantFunctionsName.WRITE: self.functions.write
         }
 

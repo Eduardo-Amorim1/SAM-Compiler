@@ -1,6 +1,41 @@
-PUSHIMM 20
-PUSHIMM 30
-PUSHIMM 2
-TIMES
-ADD
-STOP
+ADDSP 1          // Aloca espaço para 1 variável (para o endereço da string)
+
+// Define a string "Hello, SAM!"
+PUSHIMM 14       // Tamanho da string (14 caracteres)
+STOREABS 0       // Armazena o tamanho na posição 0
+
+// Endereço da string
+PUSHIMM 1        // Endereço inicial da string na memória
+STOREABS 1       // Armazena o endereço da string
+
+// Armazenando a string na memória
+PUSHIMM 72       // 'H'
+STOREABS 2       // Posição 2
+PUSHIMM 101      // 'e'
+STOREABS 3       // Posição 3
+PUSHIMM 108      // 'l'
+STOREABS 4       // Posição 4
+PUSHIMM 108      // 'l'
+STOREABS 5       // Posição 5
+PUSHIMM 111      // 'o'
+STOREABS 6       // Posição 6
+PUSHIMM 44       // ','
+STOREABS 7       // Posição 7
+PUSHIMM 32       // ' ' (espaço)
+STOREABS 8       // Posição 8
+PUSHIMM 83       // 'S'
+STOREABS 9       // Posição 9
+PUSHIMM 65       // 'A'
+STOREABS 10      // Posição 10
+PUSHIMM 77       // 'M'
+STOREABS 11      // Posição 11
+PUSHIMM 33       // '!'
+STOREABS 12      // Posição 12
+PUSHIMM 0        // Caractere nulo (null terminator)
+STOREABS 13      // Posição 13
+
+// Chama WRITESTR
+PUSHIMM 1        // Endereço onde a string começa (posição 1)
+WRITESTR         // Escreve a string na saída
+
+STOP  

@@ -1,6 +1,6 @@
 import re
 
-from constants import MappingConstants, ConstantFunctionsName
+from constants_sam import MappingConstants, ConstantFunctionsName
 from functions import Functions
 from schema import JumpConstant, Instruction, BuilderInstructions
 
@@ -96,6 +96,7 @@ class StackMachine:
                     tokens.append(self.strip_tokens(line_code, count_line))
             self.build_stack(tokens)
             print("Program finished!")
+            return self.functions.get_result_and_memory()
         except FileNotFoundError:
             print(f"File {file_path} not found")
             raise SystemExit(1)

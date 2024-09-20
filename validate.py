@@ -1,4 +1,4 @@
-from constants import ConstantFunctionsName
+from constants_sam import ConstantFunctionsName
 
 
 def is_int(value: str) -> tuple[bool, str]:

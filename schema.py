@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from constants import ConstantFunctionsName
+from constants_sam import ConstantFunctionsName
 from validate import ValidateArguments
 
 

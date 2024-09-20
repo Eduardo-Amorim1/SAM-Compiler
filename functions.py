@@ -30,6 +30,9 @@ class Functions:
 
         # Concatena os caracteres em uma string e imprime
         print(''.join(result_string[1:]))
+        
+    def equal(self):
+        self.stack.append(int(self.stack.pop() == self.stack.pop()))
 
     def jumpc(self, name_step: str):
         validate = self.stack.pop()

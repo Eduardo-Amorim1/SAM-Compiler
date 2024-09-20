@@ -53,6 +53,7 @@ class ConstantFunctionsName(enum.StrEnum):
     ADDF = "ADDF"
     WRITE = "WRITE"
     WRITESTR = "WRITESTR"
+    EQUAL = "EQUAL"
 
 
 class MappingConstants:
@@ -112,6 +113,7 @@ class MappingConstants:
             ConstantFunctionsName.LINK: self.functions.link,
             ConstantFunctionsName.ADDF: self.functions.addf,
             ConstantFunctionsName.WRITE: self.functions.write,
-            ConstantFunctionsName.WRITESTR: self.functions.write_str
+            ConstantFunctionsName.WRITESTR: self.functions.write_str,
+            ConstantFunctionsName.EQUAL: self.functions.equal
         }
 

@@ -39,4 +39,4 @@ def testes(file):
 
 if __name__ == "__main__":
     #teste_all_files()
-    testes("E:\\Faculdade\\Compiladores\\SAM-Compiler\\sams_code\\teste.sam")
+    testes("E:\Faculdade\Compiladores\sam_code.sam")

@@ -14,6 +14,22 @@ class Functions:
     
     def write(self):
         print(self.stack.pop())
+        
+    def write_str(self):
+        # A função será chamada com o endereço inicial da string na pilha
+        start_address = self.stack.pop()  # Pega o endereço inicial da string na memória
+        result_string = []
+
+        # Busca na memória os valores de ASCII até encontrar o terminador nulo (0)
+        while True:
+            char_code = self.memory.get(start_address, 0)  # Pega o valor da memória
+            if char_code == 0:  # Se encontrar o terminador nulo, pare
+                break
+            result_string.append(chr(char_code))  # Converte o código ASCII para o caractere
+            start_address += 1  # Vai para o próximo endereço
+
+        # Concatena os caracteres em uma string e imprime
+        print(''.join(result_string[1:]))
 
     def jumpc(self, name_step: str):
         validate = self.stack.pop()
